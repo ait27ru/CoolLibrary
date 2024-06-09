@@ -1,0 +1,115 @@
+﻿@model CoolLibrary.Models.ViewModels.BookVM
+
+@{
+    var title = "Create Book";
+}
+
+<form method="post" enctype="multipart/form-data">
+    @if (Model.Book.Id != 0)
+    {
+        title = "Edit Book";
+        <input asp-for="Book.Id" hidden />
+    }
+    <div class="border p-3">
+
+        <div class="form-group row">
+            <h2 class="text-info pl-3">@title</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Book.Title"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Book.Title" class="form-control" />
+                        <span asp-validation-for="Book.Title" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Book.Author"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Book.Author" class="form-control" />
+                        <span asp-validation-for="Book.Author" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Book.PublishedYear"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Book.PublishedYear" class="form-control" />
+                        <span asp-validation-for="Book.PublishedYear" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Book.Description"></label>
+                    </div>
+                    <div class="col-8">
+                        <textarea asp-for="Book.Description" class="form-control summernote"></textarea>
+                        <span asp-validation-for="Book.Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Book.GenreId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Book.GenreId" asp-items="@Model.GenreSelectList" class="form-control">
+                            <option disabled selected>-- Select Genre --</option>
+                        </select>
+                        <span asp-validation-for="Book.GenreId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Book.Quantity"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Book.Quantity" class="form-control" />
+                        <span asp-validation-for="Book.Quantity" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+
+                        <div class="col">
+                            @if (Model.Book.Id != 0)
+                            {
+                //update
+                                <input type="submit" class="btn btn-info w-100" value="Update" />
+                            }
+                            else
+                            {
+                //create
+                                <input type="submit" class="btn btn-primary w-100" value="Create" />
+                            }
+
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100"><i class="fas fa-sign-out-alt"></i> Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts {
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height: 230
+            });
+        });
+    </script>
+}

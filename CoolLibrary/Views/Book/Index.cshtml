@@ -1,0 +1,70 @@
+﻿@model IEnumerable<CoolLibrary.Models.Book>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Book List</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-action="Upsert" class="btn btn-primary">
+                <i class="fas fa-plus"></i> &nbsp; Create New Book
+            </a>
+        </div>
+    </div>
+
+    <br /><br />
+
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Author
+                    </th>
+                    <th>
+                        Year
+                    </th>
+                    <th>
+                        Genre
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td width="30%">@obj.Title</td>
+                        <td width="25%">@obj.Author</td>
+                        <td width="8%">@obj.PublishedYear</td>
+                        <td width="15%">@obj.Genre.Name</td>
+                        <td width="5%">@obj.Quantity</td>
+                        <td class="text-center">
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-route-Id="@obj.Id" asp-action="Upsert" class="btn btn-primary mx-2">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-danger mx-2">
+                                    <i class="far fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p> No book exists.</p>
+    }
+
+</div>
+
